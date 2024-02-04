@@ -3,7 +3,7 @@ name: Build
 on:
   workflow_call:
     inputs:
-      JAVA_VERSION:
+      java-version:
         required: true
         type: string
 
@@ -17,7 +17,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: $JAVA_VERSION
+          java-version: ${{ inputs.java-version }}
           distribution: 'adopt'
 
       - name: Validate Gradle wrapper
