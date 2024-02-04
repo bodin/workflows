@@ -26,11 +26,10 @@ jobs:
           java-version: ${{ inputs.java-version }}
           distribution: ${{ inputs.java-distribution }}
 
-
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: latest
 
       - name: install conventional-changelog-cli
         run: npm install -g conventional-changelog-cli
