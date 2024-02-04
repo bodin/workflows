@@ -6,22 +6,24 @@ on:
       java-version:
         type: string
         default: '21'
-
+      java-distribution:
+        type: string
+        default: 'adopt'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Source (Shallow)
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: ${{ inputs.java-version }}
-          distribution: 'adopt'
+          distribution: ${{ inputs.java-distribution }}
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/wrapper-validation-action@v2
 
       - name: Build with Gradle
         run: ./gradlew build
