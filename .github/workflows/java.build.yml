@@ -6,6 +6,7 @@ on:
       java-version:
         required: true
         type: string
+        default: '21'
 
 jobs:
   build:
