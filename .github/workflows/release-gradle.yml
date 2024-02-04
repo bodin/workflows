@@ -1,12 +1,14 @@
 name: Build and Release
 
 on:
-  workflow_dispatch:
-  push:
-    tags:
-      - 'v*.*.*'
-env:
-  JAVA_VERSION
+  workflow_call:
+    inputs:
+      java-version:
+        type: string
+        default: '21'
+      java-distribution:
+        type: string
+        default: 'adopt'
 
 jobs:
   release:
@@ -14,15 +16,16 @@ jobs:
 
     steps:
       - name: Clone Source (Full)
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: $JAVA_VERSION
-          distribution: 'adopt'
+          java-version: ${{ inputs.java-version }}
+          distribution: ${{ inputs.java-distribution }}
+
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -33,7 +36,7 @@ jobs:
         run: npm install -g conventional-changelog-cli
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/wrapper-validation-action@v2
 
       - name: Conventional Changelog Action
         # this lib will print 'changes for the uncommited version' - so we need to
