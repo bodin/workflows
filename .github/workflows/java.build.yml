@@ -1,10 +1,11 @@
 name: Build
 
 on:
-  - workflow_call
-
-env:
-  JAVA_VERSION
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        required: true
+        type: string
 
 jobs:
   build:
